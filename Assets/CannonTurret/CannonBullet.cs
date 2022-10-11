@@ -64,7 +64,7 @@ public class CannonBullet : MonoBehaviour
     {
         GameObject go = Instantiate(explosion, position, Quaternion.identity,transform.parent);
         explosion.GetComponent<ParticleSystem>().Play();
-        Destroy(go, 1);
+        Destroy(go, 3);
         for (int i = 0; i < ballons.childCount; i++)
         {
             if(Vector3.Distance(ballons.GetChild(i).position,targetPosition) < bulletRange)
