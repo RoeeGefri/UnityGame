@@ -11,6 +11,7 @@ public class CannonTurret : MonoBehaviour
 
     public Transform shootPoint;
     public Transform bulletStack;
+    public Transform rotatePart;
 
 
     public float minRange = 10f;
@@ -43,6 +44,9 @@ public class CannonTurret : MonoBehaviour
             countTime = 0;
         }
         countTime += Time.deltaTime;
+
+        rotatePart.rotation = Quaternion.LookRotation(target.position - transform.position);
+
     }
 
     private void OnDrawGizmosSelected()

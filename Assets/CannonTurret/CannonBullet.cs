@@ -46,7 +46,7 @@ public class CannonBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate((targetPosition - transform.position).normalized * bulletSpeed * Time.deltaTime);
+        transform.Translate((targetPosition - transform.position).normalized * bulletSpeed * Time.deltaTime, Space.World);
         
         if (Vector3.Distance(targetPosition, transform.position) < 0.25)
         {
@@ -59,7 +59,7 @@ public class CannonBullet : MonoBehaviour
         }
     }
 
-
+    
     private void Boom(Vector3 position)
     {
         GameObject go = Instantiate(explosion, position, Quaternion.identity,transform.parent);

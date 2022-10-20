@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    private Transform target;
+    public Transform target;
 
-    private float bulletSpeed = 70f;
+    private float bulletSpeed = 100f;
 
     // Start is called before the first frame update
     void Start()
     {
         
     }
+
 
     // Update is called once per frame
     void Update()
@@ -22,7 +23,8 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        transform.Translate((target.position-transform.position).normalized * bulletSpeed * Time.deltaTime);
+        transform.Translate((target.position-transform.position).normalized * bulletSpeed * Time.deltaTime,Space.World);
+        transform.rotation = Quaternion.LookRotation(target.position - transform.position);
 
         if (Vector3.Distance(target.position, transform.position) < 0.25)
         {
