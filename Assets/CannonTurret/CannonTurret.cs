@@ -54,6 +54,10 @@ public class CannonTurret : MonoBehaviour
 
     void FindTarget()
     {
+        if(ballons == null)
+        {
+            return;
+        }
         float min = maxRange + 1;
         Transform save = null;
         for (int i = 0; i < ballons.childCount; i++)

@@ -71,6 +71,8 @@ public class LaserTurretScript : MonoBehaviour
 
     void FindTarget()
     {
+        if (ballons == null)
+            return;
         for (int k = 0; k < target.Length; k++)
         {
             if (target[k] != null)

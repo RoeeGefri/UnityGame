@@ -57,6 +57,8 @@ public class RegularTurret : MonoBehaviour
 
     void FindTarget()
     {
+        if (ballons == null)
+            return;
         float min = range + 1;
         Transform save = null;
         for (int i = 0; i < ballons.childCount; i++)
