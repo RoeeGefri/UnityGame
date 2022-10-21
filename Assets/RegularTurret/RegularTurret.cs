@@ -12,6 +12,7 @@ public class RegularTurret : MonoBehaviour
     public Transform bulletStack;
 
     public Transform rotatePart;
+    public Transform rotateShoot;
 
 
     public float range = 15f;
@@ -37,6 +38,7 @@ public class RegularTurret : MonoBehaviour
 
         if(countTime >= firingRate)
         {
+            rotateShoot.Rotate(0, 0, 45);
             go = Instantiate(bullet, shootPoint.position, Quaternion.identity, bulletStack);
             go.GetComponent<BulletScript>().SetTarget(target);
             countTime = 0;
@@ -46,7 +48,7 @@ public class RegularTurret : MonoBehaviour
 
 
         //rotate the turret
-        rotatePart.rotation = Quaternion.LookRotation(target.position-transform.position);
+        rotatePart.rotation = Quaternion.LookRotation(target.position-rotatePart.position);
     }
 
     private void OnDrawGizmosSelected()
@@ -78,6 +80,5 @@ public class RegularTurret : MonoBehaviour
         }
         target = null;
     }
-
     
 }
