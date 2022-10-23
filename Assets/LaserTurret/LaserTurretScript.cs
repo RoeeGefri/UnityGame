@@ -7,8 +7,10 @@ public class LaserTurretScript : MonoBehaviour
 {
     public Transform ballons;
 
-    public Transform[] target = new Transform[5];
+    public Transform target;
     public Transform shootPoint;
+
+    public Transform rotatePart;
 
     public float range = 15f;
     public float firingRate = 0.3f;
@@ -28,32 +30,14 @@ public class LaserTurretScript : MonoBehaviour
     void Update()
     {
 
-        // bullet part
-
-        bool allNulls = true;
-
-        for (int i = 0; i < target.Length; i++)
-        {
-            if(target[i] == null)
-            {
-                allNulls = false;
-            }
-        }
-
-
-        if (!allNulls) return;
+        if (target == null) return;
 
 
 
         if (countTime >= firingRate)
         {
-            for(int i = 0; i < target.Length; i++)
-            {
-                if (target[i] != null)
-                {
-                    Destroy(target[i].gameObject);
-                }
-            }
+            
+            Destroy(target.gameObject);
             countTime = 0;
         }
         countTime += Time.deltaTime;
@@ -61,6 +45,7 @@ public class LaserTurretScript : MonoBehaviour
 
 
         //rotate the turret
+        rotatePart.rotation = Quaternion.LookRotation(target.position - rotatePart.position);
     }
 
     private void OnDrawGizmosSelected()
@@ -73,45 +58,24 @@ public class LaserTurretScript : MonoBehaviour
     {
         if (ballons == null)
             return;
-        for (int k = 0; k < target.Length; k++)
+        float min = range + 1;
+        Transform save = null;
+        for (int i = 0; i < ballons.childCount; i++)
         {
-            if (target[k] != null)
+            float distance = Vector3.Distance(transform.position, ballons.GetChild(i).position);
+            if (distance < min)
             {
-                continue;
-            }
-            float min = range + 1;
-            Transform save = null;
-            for (int i = 0; i < ballons.childCount; i++)
-            {
-                float distance = Vector3.Distance(transform.position, ballons.GetChild(i).position);
-                if (distance < min && NotExist(ballons.GetChild(i)))
-                {
-                    save = ballons.GetChild(i);
-                    min = distance;
-                }
-            }
-
-
-            if (min < range)
-            {
-                target[k] = save;
-                return;
-            }
-            target[k] = null;
-        }
-        
-    }
-
-    private bool NotExist(Transform other)
-    {
-        for(int i = 0; i < target.Length; i++)
-        {
-           if (target[i] == other)
-           {
-                return false;
+                save = ballons.GetChild(i);
+                min = distance;
             }
         }
-        return true;
+
+        if (min < range)
+        {
+            target = save;
+            return;
+        }
+        target = null;
     }
 
 }
