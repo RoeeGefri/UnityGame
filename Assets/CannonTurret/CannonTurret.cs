@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CannonTurret : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class CannonTurret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(FindTarget), 0f, 0.5f);
+        //InvokeRepeating(nameof(FindTarget), 0f, 0.5f);
     }
 
     // Update is called once per frame
@@ -34,6 +35,11 @@ public class CannonTurret : MonoBehaviour
         GameObject go;
 
         // bullet part
+        if(target != null && (Vector3.Distance(transform.position,target.position) > maxRange || Vector3.Distance(transform.position, target.position) < minRange))
+        {
+            target = null;
+        }
+        if(target == null) FindTarget();
         if (target == null) return;
 
         if (countTime >= firingRate)

@@ -13,7 +13,9 @@ public class LaserTurretScript : MonoBehaviour
     public Transform rotatePart;
 
     public float range = 15f;
-    public float firingRate = 0.3f;
+    public float firingRate = 0.8f;
+
+    private int damage = 5;
 
     private float countTime = 0;
 
@@ -23,12 +25,22 @@ public class LaserTurretScript : MonoBehaviour
     void Start()
     {
         
-        InvokeRepeating(nameof(FindTarget), 0, 0.2f);
+        //InvokeRepeating(nameof(FindTarget), 0, 0.2f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (target != null && Vector3.Distance(transform.position, target.position) > range)
+        {
+            target = null;
+        }
+
+        if (target == null)
+        {
+            damage = 5;
+            FindTarget();
+        }
 
         if (target == null) return;
 
@@ -36,8 +48,8 @@ public class LaserTurretScript : MonoBehaviour
 
         if (countTime >= firingRate)
         {
-            
-            Destroy(target.gameObject);
+            target.GetComponent<BallonScript>().Damage(damage);
+            damage += 5;
             countTime = 0;
         }
         countTime += Time.deltaTime;

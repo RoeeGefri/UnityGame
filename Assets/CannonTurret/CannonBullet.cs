@@ -12,6 +12,7 @@ public class CannonBullet : MonoBehaviour
     private Transform ballons;
     private float bulletSpeed = 15f;
     private float bulletRange = 5f;
+    private int damage = 100;
 
     // Start is called before the first frame updated
     void Start()
@@ -69,7 +70,7 @@ public class CannonBullet : MonoBehaviour
         {
             if(Vector3.Distance(ballons.GetChild(i).position,targetPosition) < bulletRange)
             {
-                Destroy(ballons.GetChild(i).gameObject);
+                ballons.GetChild(i).gameObject.GetComponent<BallonScript>().Damage(damage);
             }
         }
         //add predict system

@@ -4,6 +4,7 @@ public class BallonScript : MonoBehaviour
 {
     public Vector3 target;
     private float ballonMovementSpeed = 10;
+    [SerializeField]private int hp = 100;
 
     private Transform wayPoints;
     
@@ -58,6 +59,15 @@ public class BallonScript : MonoBehaviour
     public void SetSpeed(float speed)
     {
         ballonMovementSpeed = speed;
+    }
+
+    public void Damage(int dmg)
+    {
+        hp -= dmg;
+        if(hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

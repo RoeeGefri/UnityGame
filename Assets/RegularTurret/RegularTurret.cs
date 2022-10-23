@@ -16,7 +16,7 @@ public class RegularTurret : MonoBehaviour
 
 
     public float range = 15f;
-    public float firingRate = 1f;
+    public float firingRate = 0.1f;
 
     private float countTime = 0;
     
@@ -25,16 +25,20 @@ public class RegularTurret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(FindTarget), 0f,0.5f);
+        //InvokeRepeating(nameof(FindTarget), 0f,0.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
         GameObject go;
-
+        if(target != null && Vector3.Distance(transform.position, target.position) > range)
+        {
+            target = null;
+        }
+        if (target == null) FindTarget();
         // bullet part
-        if(target == null) return;
+        if (target == null) return;
 
         if(countTime >= firingRate)
         {

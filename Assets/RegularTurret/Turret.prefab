@@ -162,7 +162,7 @@ MonoBehaviour:
   rotatePart: {fileID: 5770015550202174564}
   rotateShoot: {fileID: 2372866606104786921}
   range: 15
-  firingRate: 1
+  firingRate: 0.1
 --- !u!1 &5479578243649266520
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     public Transform target;
 
     private float bulletSpeed = 100f;
+    private int damage = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class BulletScript : MonoBehaviour
 
         if (Vector3.Distance(target.position, transform.position) < 0.25)
         {
-            Destroy(target.gameObject);
+            target.GetComponent<BallonScript>().Damage(damage);
             Destroy(gameObject);
         }
     }
